@@ -45,8 +45,10 @@ public class MyBenchmark {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.NANOSECONDS)
   public List<Integer> add(TestData d) {
+
     List<Integer> target = new ArrayList<>();
     d.objects.stream().map(i -> i / 2).forEach(target::add);
+
     return target;
   }
 
@@ -54,8 +56,10 @@ public class MyBenchmark {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.NANOSECONDS)
   public List<Integer> addNoMap(TestData d) {
+
     List<Integer> target = new ArrayList<>();
     d.objects.stream().forEach(i -> target.add(i / 2));
+
     return target;
   }
 
@@ -63,8 +67,10 @@ public class MyBenchmark {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.NANOSECONDS)
   public List<Integer> addNoStream(TestData d) {
+
     List<Integer> target = new ArrayList<>();
     d.objects.forEach(i -> target.add(i / 2));
+
     return target;
   }
 
@@ -72,10 +78,12 @@ public class MyBenchmark {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.NANOSECONDS)
   public List<Integer> addLoop(TestData d) {
+
     List<Integer> target = new ArrayList<>();
     for (Integer i : d.objects) {
       target.add(i / 2);
     }
+
     return target;
   }
 
@@ -83,9 +91,14 @@ public class MyBenchmark {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.NANOSECONDS)
   public List<Integer> addAll(TestData d) {
-    final List<Integer> source = d.objects.stream().map(i -> i / 2).collect(Collectors.toList());
+
+    final List<Integer> source = d.objects.stream()
+        .map(i -> i / 2)
+        .collect(Collectors.toList());
+
     List<Integer> target = new ArrayList<>();
     target.addAll(source);
+
     return target;
   }
 
@@ -93,6 +106,7 @@ public class MyBenchmark {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.NANOSECONDS)
   public List<Integer> addAllOnInit(TestData d) {
+
     final List<Integer> source = d.objects.stream().map(i -> i / 2).collect(Collectors.toList());
     return new ArrayList<>(source);
   }
@@ -104,8 +118,10 @@ public class MyBenchmark {
 
     @Setup(Level.Iteration)
     public void setUp() {
+
       objects = new ArrayList<>(5000);
       Random r = new Random();
+
       for (int i = 0; i < 5000; i++) {
         objects.add(r.nextInt());
       }
